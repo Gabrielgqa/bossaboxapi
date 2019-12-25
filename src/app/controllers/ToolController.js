@@ -2,6 +2,14 @@ import * as Yup from 'yup';
 import Tool from '../models/Tool';
 
 class ToolController {
+  async index(req, res) {
+    const users = await Tool.findAll({
+      attributes: ['id', 'title', 'link', 'description', 'tags'],
+    });
+
+    return res.json(users);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       title: Yup.string().required(),
@@ -24,6 +32,12 @@ class ToolController {
       description,
       tags,
     });
+  }
+
+  async delete(req, res) {
+    const tool = await Tool.findByPk(req.params.id);
+    tool.destroy();
+    return res.json(tool);
   }
 }
 
