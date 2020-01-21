@@ -8,13 +8,15 @@ import authMiddleware from './app/middlewares/auth';
 
 const routes = new Router();
 
+// Rota sessão
+routes.post('/sessions', SessionController.store);
+
 routes.use(authMiddleware);
 // Rotas usuário
 routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 routes.put('/users', UserController.update);
-// Rota sessão
-routes.post('/sessions', SessionController.store);
+
 // Rotas ferramenta
 routes.get('/tools', ToolController.index);
 routes.post('/tools', ToolController.store);
